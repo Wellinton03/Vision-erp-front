@@ -30,6 +30,12 @@ const menuItems = [
     group: "principal"
   },
   {
+    title: "Lançamentos",
+    url: "/lancamentos",
+    icon: FileText,
+    group: "principal"
+  },
+  {
     title: "Clientes",
     url: "/clientes",
     icon: Users,
@@ -57,12 +63,6 @@ const menuItems = [
     title: "Financeiro",
     url: "/financeiro",
     icon: CreditCard,
-    group: "gestao"
-  },
-  {
-    title: "Documentos",
-    url: "/documentos",
-    icon: FileText,
     group: "gestao"
   },
   {

@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ERPLayout } from "@/components/layout/ERPLayout";
 import Dashboard from "@/pages/Dashboard";
 import Clientes from "@/pages/Clientes";
+import Lancamentos from "@/pages/Lancamentos";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,11 @@ const App = () => (
           <Route path="/clientes" element={
             <ERPLayout>
               <Clientes />
+            </ERPLayout>
+          } />
+          <Route path="/lancamentos" element={
+            <ERPLayout>
+              <Lancamentos />
             </ERPLayout>
           } />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
