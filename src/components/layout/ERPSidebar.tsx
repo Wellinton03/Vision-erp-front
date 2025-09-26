@@ -72,6 +72,18 @@ const menuItems = [
     group: "gestao"
   },
   {
+    title: "Cadastro de Usuários",
+    url: "/usuarios",
+    icon: Users,
+    group: "sistema"
+  },
+  {
+    title: "Cadastro de Empresas",
+    url: "/empresas",
+    icon: Building2,
+    group: "sistema"
+  },
+  {
     title: "Configurações",
     url: "/configuracoes",
     icon: Settings,

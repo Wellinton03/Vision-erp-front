@@ -7,6 +7,8 @@ import { ERPLayout } from "@/components/layout/ERPLayout";
 import Dashboard from "@/pages/Dashboard";
 import Clientes from "@/pages/Clientes";
 import Lancamentos from "@/pages/Lancamentos";
+import CadastroUsuarios from "@/pages/CadastroUsuarios";
+import CadastroEmpresas from "@/pages/CadastroEmpresas";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +33,16 @@ const App = () => (
           <Route path="/lancamentos" element={
             <ERPLayout>
               <Lancamentos />
+            </ERPLayout>
+          } />
+          <Route path="/usuarios" element={
+            <ERPLayout>
+              <CadastroUsuarios />
+            </ERPLayout>
+          } />
+          <Route path="/empresas" element={
+            <ERPLayout>
+              <CadastroEmpresas />
             </ERPLayout>
           } />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
