@@ -27,67 +27,56 @@ const menuItems = [
     title: "Dashboard",
     url: "/",
     icon: BarChart3,
-    group: "principal"
+    group: "principal",
   },
   {
     title: "Lançamentos",
     url: "/lancamentos",
     icon: FileText,
-    group: "principal"
+    group: "principal",
   },
-  {
-    title: "Clientes",
-    url: "/clientes",
-    icon: Users,
-    group: "vendas"
-  },
+
   {
     title: "Produtos",
-    url: "/produtos", 
+    url: "/produtos",
     icon: Package,
-    group: "vendas"
+    group: "vendas",
   },
   {
     title: "Vendas",
     url: "/vendas",
     icon: ShoppingCart,
-    group: "vendas"
+    group: "vendas",
   },
   {
     title: "Relatórios",
     url: "/relatorios",
     icon: TrendingUp,
-    group: "vendas"
+    group: "vendas",
   },
   {
     title: "Financeiro",
     url: "/financeiro",
     icon: CreditCard,
-    group: "gestao"
+    group: "gestao",
   },
   {
-    title: "Empresa",
-    url: "/empresa",
-    icon: Building2,
-    group: "gestao"
-  },
-  {
-    title: "Cadastro de Usuários",
-    url: "/usuarios",
-    icon: Users,
-    group: "sistema"
-  },
-  {
-    title: "Cadastro de Empresas",
+    title: "Empresas",
     url: "/empresas",
     icon: Building2,
-    group: "sistema"
+    group: "gestao",
+  },
+  {
+    title: "Usuários",
+    url: "/usuarios",
+    icon: Users,
+    group: "gestao",
   },
   {
     title: "Configurações",
     url: "/configuracoes",
     icon: Settings,
-    group: "sistema"
+    group: "sistema",
   },
 ];
 
@@ -95,7 +84,7 @@ const groupLabels = {
   principal: "Principal",
   vendas: "Vendas & Produtos",
   gestao: "Gestão",
-  sistema: "Sistema"
+  sistema: "Sistema",
 };
 
 export function ERPSidebar() {
@@ -105,7 +94,7 @@ export function ERPSidebar() {
   const collapsed = state === "collapsed";
 
   const isActive = (path: string) => currentPath === path;
-  
+
   const getNavClass = ({ isActive }: { isActive: boolean }) =>
     isActive
       ? "bg-primary text-primary-foreground hover:bg-primary/90"
@@ -126,7 +115,9 @@ export function ERPSidebar() {
               <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
                 <BarChart3 className="h-5 w-5 text-white" />
               </div>
-              <h1 className="font-bold text-lg text-sidebar-foreground">ERP Smart</h1>
+              <h1 className="font-bold text-lg text-sidebar-foreground">
+                ERP Smart
+              </h1>
             </div>
           )}
         </div>

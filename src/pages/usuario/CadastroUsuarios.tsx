@@ -1,7 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +8,7 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Save, UserPlus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { UsuarioService } from "@/api/UsuarioService";
 
 const usuarioSchema = z.object({
   nome: z.string().trim().min(1, { message: "Nome é obrigatório" }).max(100, { message: "Nome deve ter no máximo 100 caracteres" }),
@@ -41,7 +41,6 @@ export default function CadastroUsuarios() {
   });
 
   const onSubmit = (data: UsuarioFormData) => {
-    // Aqui você conectará com sua API
     console.log("Dados do usuário:", data);
     
     toast({
