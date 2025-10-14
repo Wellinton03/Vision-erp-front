@@ -19,3 +19,11 @@ export const deletarEmpresa = async (id) => {
   const response = await api.delete(`/empresa/excluir/${id}`);
   return response.data;
 }
+
+
+export const EmpresaService = {
+  listarEmpresas,
+  criarEmpresa,
+  atualizarEmpresa,
+  deletarEmpresa
+};

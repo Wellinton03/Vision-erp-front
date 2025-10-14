@@ -9,6 +9,8 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Save, UserPlus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { UsuarioService } from "@/api/UsuarioService";
+import { useEffect, useState } from "react";
+import { EmpresaService } from "@/api/EmpresaService";
 
 const usuarioSchema = z.object({
   nome: z.string().trim().min(1, { message: "Nome é obrigatório" }).max(100, { message: "Nome deve ter no máximo 100 caracteres" }),
@@ -25,6 +27,7 @@ type UsuarioFormData = z.infer<typeof usuarioSchema>;
 
 export default function CadastroUsuarios() {
   const { toast } = useToast();
+  const [empresas, setEmpresas] = useState<{ id: string; nome: string }[]>([]);
   
   const form = useForm<UsuarioFormData>({
     resolver: zodResolver(usuarioSchema),
@@ -40,16 +43,38 @@ export default function CadastroUsuarios() {
     }
   });
 
-  const onSubmit = (data: UsuarioFormData) => {
+  const onSubmit = async (data: UsuarioFormData) => {
     console.log("Dados do usuário:", data);
-    
-    toast({
+    try{
+      await UsuarioService.criarUsuario(data);
+      toast({
       title: "Usuário cadastrado",
       description: "O usuário foi cadastrado com sucesso!",
     });
-    
     form.reset();
-  };
+    } catch (error) {
+      console.error("Erro ao cadastrar usuário:", error);
+      toast({
+        title: "Erro",
+        description: "Ocorreu um erro ao cadastrar o usuário. Tente novamente.",
+        variant: "destructive"
+      });
+      return;
+    }
+  }
+
+  useEffect(() => {
+    async function carregaEmpresas() {
+      try {
+        const empresas = await EmpresaService.listarEmpresas();
+        setEmpresas(empresas);
+      } catch (error) {
+        console.error("Erro ao carregar empresas:", error);
+      }
+    }
+
+    carregaEmpresas();
+  }, []);
 
   return (
     <div className="container mx-auto p-6 space-y-6">
@@ -108,16 +133,18 @@ export default function CadastroUsuarios() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Empresa</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select value={field.value} onValueChange={field.onChange}>
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Selecione uma empresa" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="empresa1">Empresa Exemplo 1</SelectItem>
-                          <SelectItem value="empresa2">Empresa Exemplo 2</SelectItem>
-                          <SelectItem value="empresa3">Empresa Exemplo 3</SelectItem>
+                          {empresas.map((empresa) => (
+                            <SelectItem key={empresa.id} value={empresa.id}>
+                              {empresa.nome}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -202,7 +229,7 @@ export default function CadastroUsuarios() {
                 </Button>
                 <Button type="submit" className="flex items-center gap-2">
                   <Save className="h-4 w-4" />
-                  Cadastrar Usuário
+                  Salvar
                 </Button>
               </div>
             </form>

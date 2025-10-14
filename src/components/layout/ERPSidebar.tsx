@@ -116,7 +116,7 @@ export function ERPSidebar() {
                 <BarChart3 className="h-5 w-5 text-white" />
               </div>
               <h1 className="font-bold text-lg text-sidebar-foreground">
-                ERP Smart
+                VISION ERP
               </h1>
             </div>
           )}

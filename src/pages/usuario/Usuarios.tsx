@@ -7,11 +7,15 @@ import { Badge } from "@/components/ui/badge";
 import { Search, Plus, MoreVertical, Phone, Mail, MapPin } from "lucide-react";
 import { UsuarioService } from "@/api/UsuarioService";
 import { Usuario } from "@/api/Api";
+import { useAppNavigation } from "@/hooks/useAppNavigation";
 
 export default function Usuarios() {
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { CadastroUsuarios } = useAppNavigation();
+  console.log(CadastroUsuarios);
 
 useEffect(() => {
   UsuarioService.listarUsuarios()
@@ -36,7 +40,7 @@ if (error) return <p>{error}</p>;
           <h1 className="text-3xl font-bold text-foreground">Usuários</h1>
           <p className="text-muted-foreground">Gerencie sua base de usuários</p>
         </div>
-        <Button className="bg-gradient-primary hover:opacity-90 transition-opacity">
+        <Button className="bg-gradient-primary hover:opacity-90 transition-opacity" onClick={() => CadastroUsuarios()}>
           <Plus className="h-4 w-4 mr-2" />
           Novo Usuário
         </Button>
