@@ -36,7 +36,6 @@ export default function CadastroEmpresas() {
   });
 
   const onSubmit = (data: EmpresaFormData) => {
-    // Aqui você conectará com sua API
     console.log("Dados da empresa:", data);
     
     toast({

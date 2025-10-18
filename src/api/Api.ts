@@ -12,8 +12,6 @@ export interface Usuario {
   telefone: string;
   cidade: string;
   email: string;
-  dtCriacao: string;
-  dtAtualizacao: string;
   status: string;
   funcao: string;
 }
@@ -26,8 +24,6 @@ export interface Empresa {
   telefone: string;
   cidade: string;
   email: string;
-  dtCriacao: string;
-  dtAtualizacao: string;
   status: string;
 }
 
@@ -37,9 +33,7 @@ export interface Item {
   descricao: string;
   valor: number;
   quantidade: number;
-  dtCriacao: string;
-  dtAtualizacao: string;
-  statusEvento: string;
+  status: string;
 }
 
 export interface Evento {
@@ -47,6 +41,9 @@ export interface Evento {
   titulo: string;
   descricao: string;
   data: string;
+  relator: Usuario;
+  responsavel: Usuario;
+  setorResponsavel: string;
   local: string;
   dtCriacao: string;
   dtAtualizacao: string;

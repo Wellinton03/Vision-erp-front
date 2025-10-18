@@ -30,15 +30,15 @@ const menuItems = [
     group: "principal",
   },
   {
-    title: "Lançamentos",
-    url: "/lancamentos",
+    title: "Eventos",
+    url: "/eventos",
     icon: FileText,
     group: "principal",
   },
 
   {
     title: "Produtos",
-    url: "/produtos",
+    url: "/items",
     icon: Package,
     group: "vendas",
   },

@@ -5,12 +5,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ERPLayout } from "@/components/layout/ERPLayout";
 import Dashboard from "@/pages/Dashboard";
-import Lancamentos from "@/pages/Lancamentos";
 import CadastroUsuarios from "@/pages/usuario/CadastroUsuarios";
 import CadastroEmpresas from "@/pages/empresa/CadastroEmpresas";
 import NotFound from "@/pages/NotFound";
 import Usuarios from "@/pages/usuario/Usuarios";
 import Empresas from "@/pages/empresa/Empresas";
+import Items from "@/pages/Item/Items";
+import CadastroItems from "@/pages/Item/CadastroItems";
+import Eventos from "./pages/evento/Eventos";
+import CadastroEventos from "./pages/evento/CadastroEventos";
 
 const queryClient = new QueryClient();
 
@@ -30,10 +33,18 @@ const App = () => (
             }
           />
           <Route
-            path="/lancamentos"
+            path="/eventos"
             element={
               <ERPLayout>
-                <Lancamentos />
+                <Eventos />
+              </ERPLayout>
+            }
+          />
+          <Route
+            path="/eventos/cadastro-eventos"
+            element={
+              <ERPLayout>
+                <CadastroEventos />
               </ERPLayout>
             }
           />
@@ -66,6 +77,22 @@ const App = () => (
             element={
               <ERPLayout>
                 <CadastroEmpresas />
+              </ERPLayout>
+            }
+          />
+          <Route
+            path="/items/cadastro-items"
+            element={
+              <ERPLayout>
+                <CadastroItems />
+              </ERPLayout>
+            }
+          />
+          <Route
+            path="/items"
+            element={
+              <ERPLayout>
+                <Items />
               </ERPLayout>
             }
           />

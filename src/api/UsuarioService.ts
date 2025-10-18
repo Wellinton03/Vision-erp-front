@@ -1,8 +1,19 @@
 import api from "./Api";
 
 export const listarUsuarios = async () => {
-  const response = await api.get("/usuario/listar");
-  return response.data;
+  try {
+    const response = await api.get("/usuario/listar");
+    return response.data;
+  } catch (error: any) {
+    if (error.response) {
+      throw new Error(
+        typeof error.response.data === "string"
+          ? error.response.data
+          : error.response.data?.message || "Erro desconhecido no servidor"
+      );
+    }
+    throw new Error("Erro de conexão com o servidor");
+  }
 };
 
 export const criarUsuario = async (usuario) => {

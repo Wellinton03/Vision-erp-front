@@ -19,3 +19,10 @@ export const deletarEvento = async (id) => {
   const response = await api.delete(`/evento/excluir/${id}`);
   return response.data;
 }
+
+export const EventoService = {
+  listarEventos,
+  criarEvento,
+  atualizarEvento,
+  deletarEvento,
+}

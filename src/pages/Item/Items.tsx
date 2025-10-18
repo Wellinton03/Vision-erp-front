@@ -4,20 +4,20 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Search, Plus, MoreVertical, Phone, Mail, MapPin } from "lucide-react";
-import { Empresa } from "@/api/Api";
 import { useAppNavigation } from "@/hooks/useAppNavigation";
-import { EmpresaService } from "@/api/EmpresaService";
+import { Item } from "@/api/Api";
+import { ItemService } from "@/api/ItemService";
 
-export default function Empresas() {
-  const [usuarios, setUsuarios] = useState<Empresa[]>([]);
+export default function Items() {
+  const [usuarios, setUsuarios] = useState<Item[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [search, setSearch] = useState("");
 
-  const { CadastroEmpresas } = useAppNavigation();
+  const { CadastroProdutos } = useAppNavigation();
 
   useEffect(() => {
-    EmpresaService.listarEmpresas()
+    ItemService.listarItems()
       .then((data) => {
         if (Array.isArray(data)) {
           setUsuarios(data);
@@ -25,7 +25,7 @@ export default function Empresas() {
           setError("Erro interno no servidor.");
         }
       })
-      .catch(() => setError("Erro ao carregar empresas."))
+      .catch(() => setError("Erro ao carregar Produtos."))
       .finally(() => setLoading(false));
   }, []);
 
@@ -37,12 +37,15 @@ export default function Empresas() {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Empresas</h1>
-          <p className="text-muted-foreground">Gerencie sua base de empresas</p>
+          <h1 className="text-3xl font-bold text-foreground">Produtos</h1>
+          <p className="text-muted-foreground">Gerencie sua base de Produtos</p>
         </div>
-        <Button className="bg-gradient-primary hover:opacity-90 transition-opacity" onClick={() => CadastroEmpresas()}>
+        <Button
+          className="bg-gradient-primary hover:opacity-90 transition-opacity"
+          onClick={() => CadastroProdutos()}
+        >
           <Plus className="h-4 w-4 mr-2" />
-          Nova Empresa
+          Novo Produto
         </Button>
       </div>
 
@@ -65,7 +68,7 @@ export default function Empresas() {
 
       {loading ? (
         <div className="flex justify-center items-center h-40 text-muted-foreground">
-          Carregando empresas...
+          Carregando produtos...
         </div>
       ) : error ? (
         <div className="flex flex-col items-center justify-center h-40 text-destructive text-center">
@@ -73,32 +76,32 @@ export default function Empresas() {
         </div>
       ) : filteredUsuarios.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-40 text-muted-foreground">
-          <p>Nenhuma empresa encontrada.</p>
+          <p>Nenhum produto encontrado.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredUsuarios.map((empresa) => (
+          {filteredUsuarios.map((produto) => (
             <Card
-              key={empresa.id}
+              key={produto.id}
               className="hover:shadow-md transition-all duration-200 hover:-translate-y-0.5"
             >
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between">
                   <div className="space-y-1">
-                    <CardTitle className="text-lg">{empresa.nome}</CardTitle>
+                    <CardTitle className="text-lg">{produto.nome}</CardTitle>
                   </div>
                   <div className="flex items-center gap-2">
                     <Badge
                       variant={
-                        empresa.status === "Ativo" ? "default" : "secondary"
+                        produto.status === "Ativo" ? "default" : "secondary"
                       }
                       className={
-                        empresa.status === "Ativo"
+                        produto.status === "Ativo"
                           ? "bg-success text-success-foreground"
                           : "bg-muted text-muted-foreground"
                       }
                     >
-                      {empresa.status ?? "Indefinido"}
+                      {produto.status ?? "Indefinido"}
                     </Badge>
                     <Button variant="ghost" size="icon" className="h-8 w-8">
                       <MoreVertical className="h-4 w-4" />
@@ -111,15 +114,11 @@ export default function Empresas() {
                 <div className="space-y-2 text-sm text-muted-foreground">
                   <div className="flex items-center gap-2">
                     <Mail className="h-4 w-4" />
-                    <span>{empresa.email}</span>
+                    <span>{produto.valor}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <Phone className="h-4 w-4" />
-                    <span>{empresa.telefone}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4" />
-                    <span>{empresa.cidade}</span>
+                    <span>{produto.quantidade}</span>
                   </div>
                 </div>
 
