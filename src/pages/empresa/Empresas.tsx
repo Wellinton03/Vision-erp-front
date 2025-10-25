@@ -40,7 +40,10 @@ export default function Empresas() {
           <h1 className="text-3xl font-bold text-foreground">Empresas</h1>
           <p className="text-muted-foreground">Gerencie sua base de empresas</p>
         </div>
-        <Button className="bg-gradient-primary hover:opacity-90 transition-opacity" onClick={() => CadastroEmpresas()}>
+        <Button
+          className="bg-gradient-primary hover:opacity-90 transition-opacity"
+          onClick={() => CadastroEmpresas()}
+        >
           <Plus className="h-4 w-4 mr-2" />
           Nova Empresa
         </Button>

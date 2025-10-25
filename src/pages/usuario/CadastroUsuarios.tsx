@@ -1,11 +1,30 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Save, UserPlus } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { UsuarioService } from "@/api/UsuarioService";
@@ -13,14 +32,41 @@ import { useEffect, useState } from "react";
 import { EmpresaService } from "@/api/EmpresaService";
 
 const usuarioSchema = z.object({
-  nome: z.string().trim().min(1, { message: "Nome é obrigatório" }).max(100, { message: "Nome deve ter no máximo 100 caracteres" }),
-  cpf: z.string().trim().min(11, { message: "CPF deve ter 11 dígitos" }).max(14, { message: "CPF inválido" }),
-  empresa: z.string().min(1, { message: "Empresa é obrigatória" }),
-  funcao: z.string().trim().min(1, { message: "Função é obrigatória" }).max(50, { message: "Função deve ter no máximo 50 caracteres" }),
-  telefone: z.string().trim().min(10, { message: "Telefone deve ter pelo menos 10 dígitos" }).max(15, { message: "Telefone inválido" }),
-  cidade: z.string().trim().min(1, { message: "Cidade é obrigatória" }).max(100, { message: "Cidade deve ter no máximo 100 caracteres" }),
-  senha: z.string().min(6, { message: "Senha deve ter pelo menos 6 caracteres" }).max(50, { message: "Senha deve ter no máximo 50 caracteres" }),
-  email: z.string().trim().email({ message: "Email inválido" }).max(255, { message: "Email deve ter no máximo 255 caracteres" })
+  nome: z
+    .string()
+    .trim()
+    .min(1, { message: "Nome é obrigatório" })
+    .max(100, { message: "Nome deve ter no máximo 100 caracteres" }),
+  cpf: z
+    .string()
+    .trim()
+    .min(11, { message: "CPF deve ter 11 dígitos" })
+    .max(14, { message: "CPF inválido" }),
+  empresaId: z.string().min(1, { message: "Empresa é obrigatória" }),
+  funcao: z
+    .string()
+    .trim()
+    .min(1, { message: "Função é obrigatória" })
+    .max(50, { message: "Função deve ter no máximo 50 caracteres" }),
+  telefone: z
+    .string()
+    .trim()
+    .min(10, { message: "Telefone deve ter pelo menos 10 dígitos" })
+    .max(15, { message: "Telefone inválido" }),
+  cidade: z
+    .string()
+    .trim()
+    .min(1, { message: "Cidade é obrigatória" })
+    .max(100, { message: "Cidade deve ter no máximo 100 caracteres" }),
+  senha: z
+    .string()
+    .min(6, { message: "Senha deve ter pelo menos 6 caracteres" })
+    .max(50, { message: "Senha deve ter no máximo 50 caracteres" }),
+  email: z
+    .string()
+    .trim()
+    .email({ message: "Email inválido" })
+    .max(255, { message: "Email deve ter no máximo 255 caracteres" }),
 });
 
 type UsuarioFormData = z.infer<typeof usuarioSchema>;
@@ -28,40 +74,41 @@ type UsuarioFormData = z.infer<typeof usuarioSchema>;
 export default function CadastroUsuarios() {
   const { toast } = useToast();
   const [empresas, setEmpresas] = useState<{ id: string; nome: string }[]>([]);
-  
+
   const form = useForm<UsuarioFormData>({
     resolver: zodResolver(usuarioSchema),
     defaultValues: {
       nome: "",
       cpf: "",
-      empresa: "",
+      empresaId: "",
       funcao: "",
       telefone: "",
       cidade: "",
       senha: "",
-      email: ""
-    }
+      email: "",
+    },
   });
 
   const onSubmit = async (data: UsuarioFormData) => {
     console.log("Dados do usuário:", data);
-    try{
+    try {
       await UsuarioService.criarUsuario(data);
       toast({
-      title: "Usuário cadastrado",
-      description: "O usuário foi cadastrado com sucesso!",
-    });
-    form.reset();
+        title: "Usuário cadastrado",
+        description: "O usuário foi cadastrado com sucesso!",
+        variant: "default",
+      });
+      form.reset();
     } catch (error) {
       console.error("Erro ao cadastrar usuário:", error);
       toast({
         title: "Erro",
         description: "Ocorreu um erro ao cadastrar o usuário. Tente novamente.",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
-  }
+  };
 
   useEffect(() => {
     async function carregaEmpresas() {
@@ -81,7 +128,9 @@ export default function CadastroUsuarios() {
       <div className="flex items-center gap-2">
         <UserPlus className="h-8 w-8 text-primary" />
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Cadastro de Usuários</h1>
+          <h1 className="text-3xl font-bold text-foreground">
+            Cadastro de Usuários
+          </h1>
           <p className="text-muted-foreground mt-1">
             Adicione novos usuários ao sistema
           </p>
@@ -106,7 +155,10 @@ export default function CadastroUsuarios() {
                     <FormItem>
                       <FormLabel>Nome Completo</FormLabel>
                       <FormControl>
-                        <Input placeholder="Digite o nome completo" {...field} />
+                        <Input
+                          placeholder="Digite o nome completo"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -129,19 +181,22 @@ export default function CadastroUsuarios() {
 
                 <FormField
                   control={form.control}
-                  name="empresa"
+                  name="empresaId"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Empresa</FormLabel>
-                      <Select value={field.value} onValueChange={field.onChange}>
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Selecione uma empresa" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
+                        <SelectContent className="bg-white text-gray-900 dark:bg-gray-800 dark:text-white">
                           {empresas.map((empresa) => (
-                            <SelectItem key={empresa.id} value={empresa.id}>
+                            <SelectItem key={empresa.id} value={empresa.nome}>
                               {empresa.nome}
                             </SelectItem>
                           ))}
@@ -159,7 +214,10 @@ export default function CadastroUsuarios() {
                     <FormItem>
                       <FormLabel>Função</FormLabel>
                       <FormControl>
-                        <Input placeholder="Ex: Gerente, Analista, etc." {...field} />
+                        <Input
+                          placeholder="Ex: Gerente, Analista, etc."
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -201,7 +259,11 @@ export default function CadastroUsuarios() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="usuario@email.com" {...field} />
+                        <Input
+                          type="email"
+                          placeholder="usuario@email.com"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -215,7 +277,11 @@ export default function CadastroUsuarios() {
                     <FormItem>
                       <FormLabel>Senha</FormLabel>
                       <FormControl>
-                        <Input type="password" placeholder="Digite a senha" {...field} />
+                        <Input
+                          type="password"
+                          placeholder="Digite a senha"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -224,7 +290,11 @@ export default function CadastroUsuarios() {
               </div>
 
               <div className="flex justify-end gap-4">
-                <Button type="button" variant="outline" onClick={() => form.reset()}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => form.reset()}
+                >
                   Limpar
                 </Button>
                 <Button type="submit" className="flex items-center gap-2">

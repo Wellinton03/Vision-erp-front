@@ -18,7 +18,9 @@ export const listarUsuarios = async () => {
 
 export const criarUsuario = async (usuario) => {
   const response = await api.post("/usuario/cadastrar", usuario);
-  return response.data;
+  if (response.status === 201) {
+    return response.data;
+  }
 };
 
 export const atualizarUsuario = async (usuario) => {
@@ -29,11 +31,11 @@ export const atualizarUsuario = async (usuario) => {
 export const deletarUsuario = async (id) => {
   const response = await api.delete(`/usuario/excluir/${id}`);
   return response.data;
-}
+};
 
 export const UsuarioService = {
   listarUsuarios,
   criarUsuario,
   atualizarUsuario,
-  deletarUsuario
+  deletarUsuario,
 };

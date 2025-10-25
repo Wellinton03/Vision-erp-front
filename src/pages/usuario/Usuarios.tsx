@@ -40,7 +40,10 @@ export default function Usuarios() {
           <h1 className="text-3xl font-bold text-foreground">Usuários</h1>
           <p className="text-muted-foreground">Gerencie sua base de usuários</p>
         </div>
-        <Button className="bg-gradient-primary hover:opacity-90 transition-opacity" onClick={() => CadastroUsuarios()}>
+        <Button
+          className="bg-gradient-primary hover:opacity-90 transition-opacity"
+          onClick={() => CadastroUsuarios()}
+        >
           <Plus className="h-4 w-4 mr-2" />
           Novo Usuário
         </Button>

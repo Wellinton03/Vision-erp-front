@@ -1,28 +1,68 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Save, Building2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { EmpresaService } from "@/api/EmpresaService";
 
 const empresaSchema = z.object({
-  nome: z.string().trim().min(1, { message: "Nome é obrigatório" }).max(100, { message: "Nome deve ter no máximo 100 caracteres" }),
+  nome: z
+    .string()
+    .trim()
+    .min(1, { message: "Nome é obrigatório" })
+    .max(100, { message: "Nome deve ter no máximo 100 caracteres" }),
   tipoEmpresa: z.string().min(1, { message: "Tipo de empresa é obrigatório" }),
-  cnpj: z.string().trim().min(14, { message: "CNPJ deve ter 14 dígitos" }).max(18, { message: "CNPJ inválido" }),
-  telefone: z.string().trim().min(10, { message: "Telefone deve ter pelo menos 10 dígitos" }).max(15, { message: "Telefone inválido" }),
-  cidade: z.string().trim().min(1, { message: "Cidade é obrigatória" }).max(100, { message: "Cidade deve ter no máximo 100 caracteres" }),
-  email: z.string().trim().email({ message: "Email inválido" }).max(255, { message: "Email deve ter no máximo 255 caracteres" })
+  cnpj: z
+    .string()
+    .trim()
+    .min(14, { message: "CNPJ deve ter 14 dígitos" })
+    .max(18, { message: "CNPJ inválido" }),
+  telefone: z
+    .string()
+    .trim()
+    .min(10, { message: "Telefone deve ter pelo menos 10 dígitos" })
+    .max(15, { message: "Telefone inválido" }),
+  cidade: z
+    .string()
+    .trim()
+    .min(1, { message: "Cidade é obrigatória" })
+    .max(100, { message: "Cidade deve ter no máximo 100 caracteres" }),
+  email: z
+    .string()
+    .trim()
+    .email({ message: "Email inválido" })
+    .max(255, { message: "Email deve ter no máximo 255 caracteres" }),
 });
 
 type EmpresaFormData = z.infer<typeof empresaSchema>;
 
 export default function CadastroEmpresas() {
   const { toast } = useToast();
-  
+
   const form = useForm<EmpresaFormData>({
     resolver: zodResolver(empresaSchema),
     defaultValues: {
@@ -31,19 +71,28 @@ export default function CadastroEmpresas() {
       cnpj: "",
       telefone: "",
       cidade: "",
-      email: ""
-    }
+      email: "",
+    },
   });
 
-  const onSubmit = (data: EmpresaFormData) => {
-    console.log("Dados da empresa:", data);
-    
-    toast({
-      title: "Empresa cadastrada",
-      description: "A empresa foi cadastrada com sucesso!",
-    });
-    
-    form.reset();
+  const onSubmit = async (data: EmpresaFormData) => {
+    try {
+      await EmpresaService.criarEmpresa(data);
+      toast({
+        title: "Empresa cadastrada",
+        description: "A empresa foi cadastrada com sucesso!",
+        variant: "default",
+      });
+      form.reset();
+    } catch (error) {
+      console.error("Erro ao cadastrar empresa:", error);
+      toast({
+        title: "Erro ao cadastrar empresa",
+        description:
+          "Ocorreu um erro ao tentar cadastrar a empresa. Por favor, tente novamente.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -51,7 +100,9 @@ export default function CadastroEmpresas() {
       <div className="flex items-center gap-2">
         <Building2 className="h-8 w-8 text-primary" />
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Cadastro de Empresas</h1>
+          <h1 className="text-3xl font-bold text-foreground">
+            Cadastro de Empresas
+          </h1>
           <p className="text-muted-foreground mt-1">
             Adicione novas empresas ao sistema
           </p>
@@ -76,7 +127,10 @@ export default function CadastroEmpresas() {
                     <FormItem>
                       <FormLabel>Nome da Empresa</FormLabel>
                       <FormControl>
-                        <Input placeholder="Digite o nome da empresa" {...field} />
+                        <Input
+                          placeholder="Digite o nome da empresa"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -89,19 +143,26 @@ export default function CadastroEmpresas() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Tipo de Empresa</FormLabel>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <Select
+                        onValueChange={field.onChange}
+                        value={field.value}
+                      >
                         <FormControl>
                           <SelectTrigger>
                             <SelectValue placeholder="Selecione o tipo" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
+                        <SelectContent className="bg-white text-gray-900 dark:bg-gray-800 dark:text-white">
                           <SelectItem value="ltda">LTDA</SelectItem>
                           <SelectItem value="sa">S/A</SelectItem>
                           <SelectItem value="mei">MEI</SelectItem>
                           <SelectItem value="eireli">EIRELI</SelectItem>
-                          <SelectItem value="sociedade-simples">Sociedade Simples</SelectItem>
-                          <SelectItem value="empresario-individual">Empresário Individual</SelectItem>
+                          <SelectItem value="sociedade-simples">
+                            Sociedade Simples
+                          </SelectItem>
+                          <SelectItem value="empresario-individual">
+                            Empresário Individual
+                          </SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />
@@ -158,7 +219,11 @@ export default function CadastroEmpresas() {
                     <FormItem>
                       <FormLabel>Email</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="empresa@email.com" {...field} />
+                        <Input
+                          type="email"
+                          placeholder="empresa@email.com"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -167,7 +232,11 @@ export default function CadastroEmpresas() {
               </div>
 
               <div className="flex justify-end gap-4">
-                <Button type="button" variant="outline" onClick={() => form.reset()}>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => form.reset()}
+                >
                   Limpar
                 </Button>
                 <Button type="submit" className="flex items-center gap-2">
