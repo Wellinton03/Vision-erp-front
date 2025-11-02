@@ -12,7 +12,9 @@ export const criarEvento = async (evento) => {
 
 export const atualizarEvento = async (evento) => {
   const response = await api.put("/evento/editar/", evento);
-  return response.data;
+  if (response.status === 201) {
+    return response.data;
+  }
 };
 
 export const deletarEvento = async (id) => {
