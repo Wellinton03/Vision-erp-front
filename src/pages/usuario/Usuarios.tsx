@@ -90,7 +90,7 @@ export default function Usuarios() {
                   <div className="space-y-1">
                     <CardTitle className="text-lg">{usuario.nome}</CardTitle>
                     <p className="text-sm text-muted-foreground">
-                      {usuario.empresa?.nome ?? "-"}
+                      {usuario.Empresa ?? "-"}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">

@@ -14,6 +14,7 @@ import Items from "@/pages/Item/Items";
 import CadastroItems from "@/pages/Item/CadastroItems";
 import Eventos from "./pages/evento/Eventos";
 import CadastroEventos from "./pages/evento/CadastroEventos";
+import Relatorios from "./pages/relatorios/Relatorios";
 
 const queryClient = new QueryClient();
 
@@ -93,6 +94,14 @@ const App = () => (
             element={
               <ERPLayout>
                 <Items />
+              </ERPLayout>
+            }
+          />
+          <Route
+            path="/relatorios"
+            element={
+              <ERPLayout>
+                <Relatorios />
               </ERPLayout>
             }
           />
