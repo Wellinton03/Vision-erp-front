@@ -2,8 +2,11 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ERPLayout } from "@/components/layout/ERPLayout";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
+import Login from "@/pages/Auth/Login";
 import Dashboard from "@/pages/Dashboard";
 import CadastroUsuarios from "@/pages/usuario/CadastroUsuarios";
 import CadastroEmpresas from "@/pages/empresa/CadastroEmpresas";
@@ -24,89 +27,113 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <ERPLayout>
-                <Dashboard />
-              </ERPLayout>
-            }
-          />
+        <AuthProvider>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <ERPLayout>
+                    <Dashboard />
+                  </ERPLayout>
+                </ProtectedRoute>
+              }
+            />
           <Route
             path="/eventos"
             element={
-              <ERPLayout>
-                <Eventos />
-              </ERPLayout>
+              <ProtectedRoute>
+                <ERPLayout>
+                  <Eventos />
+                </ERPLayout>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/eventos/cadastro-eventos"
             element={
-              <ERPLayout>
-                <CadastroEventos />
-              </ERPLayout>
+              <ProtectedRoute>
+                <ERPLayout>
+                  <CadastroEventos />
+                </ERPLayout>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/usuarios"
             element={
-              <ERPLayout>
-                <Usuarios />
-              </ERPLayout>
+              <ProtectedRoute>
+                <ERPLayout>
+                  <Usuarios />
+                </ERPLayout>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/usuarios/cadastro-usuarios"
             element={
-              <ERPLayout>
-                <CadastroUsuarios />
-              </ERPLayout>
+              <ProtectedRoute>
+                <ERPLayout>
+                  <CadastroUsuarios />
+                </ERPLayout>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/empresas"
             element={
-              <ERPLayout>
-                <Empresas />
-              </ERPLayout>
+              <ProtectedRoute>
+                <ERPLayout>
+                  <Empresas />
+                </ERPLayout>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/empresas/cadastro-empresas"
             element={
-              <ERPLayout>
-                <CadastroEmpresas />
-              </ERPLayout>
+              <ProtectedRoute>
+                <ERPLayout>
+                  <CadastroEmpresas />
+                </ERPLayout>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/items/cadastro-items"
             element={
-              <ERPLayout>
-                <CadastroItems />
-              </ERPLayout>
+              <ProtectedRoute>
+                <ERPLayout>
+                  <CadastroItems />
+                </ERPLayout>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/items"
             element={
-              <ERPLayout>
-                <Items />
-              </ERPLayout>
+              <ProtectedRoute>
+                <ERPLayout>
+                  <Items />
+                </ERPLayout>
+              </ProtectedRoute>
             }
           />
           <Route
             path="/relatorios"
             element={
-              <ERPLayout>
-                <Relatorios />
-              </ERPLayout>
+              <ProtectedRoute>
+                <ERPLayout>
+                  <Relatorios />
+                </ERPLayout>
+              </ProtectedRoute>
             }
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
