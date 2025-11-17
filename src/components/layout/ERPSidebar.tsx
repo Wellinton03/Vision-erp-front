@@ -43,12 +43,6 @@ const menuItems = [
     group: "vendas",
   },
   {
-    title: "Vendas",
-    url: "/vendas",
-    icon: ShoppingCart,
-    group: "vendas",
-  },
-  {
     title: "Relatórios",
     url: "/relatorios",
     icon: TrendingUp,
