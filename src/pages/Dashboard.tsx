@@ -8,6 +8,8 @@ import {
   Package,
   Calendar
 } from "lucide-react";
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 export default function Dashboard() {
   // Dados mockados - substitua por dados reais da sua API
@@ -45,6 +47,24 @@ export default function Dashboard() {
       variant: "default" as const
     }
   ];
+
+  // Dados mockados para o gráfico de vendas dos últimos 30 dias
+  const salesData = [
+    { day: "01", vendas: 12500 },
+    { day: "05", vendas: 15300 },
+    { day: "10", vendas: 18700 },
+    { day: "15", vendas: 14200 },
+    { day: "20", vendas: 21500 },
+    { day: "25", vendas: 19800 },
+    { day: "30", vendas: 22500 },
+  ];
+
+  const chartConfig = {
+    vendas: {
+      label: "Vendas",
+      color: "hsl(var(--primary))",
+    },
+  };
 
   const recentActivities = [
     { id: 1, action: "Nova venda realizada", client: "João Silva", amount: "R$ 2.450", time: "2 min atrás" },
@@ -98,9 +118,33 @@ export default function Dashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-64 flex items-center justify-center bg-muted/20 rounded-lg">
-              <p className="text-muted-foreground">Gráfico será implementado aqui</p>
-            </div>
+            <ChartContainer config={chartConfig} className="h-64 w-full">
+              <BarChart data={salesData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+                <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                <XAxis 
+                  dataKey="day" 
+                  tickLine={false}
+                  axisLine={false}
+                  className="text-xs"
+                  tickFormatter={(value) => `Dia ${value}`}
+                />
+                <YAxis 
+                  tickLine={false}
+                  axisLine={false}
+                  className="text-xs"
+                  tickFormatter={(value) => `R$ ${(value / 1000).toFixed(0)}k`}
+                />
+                <ChartTooltip 
+                  content={<ChartTooltipContent />}
+                  formatter={(value) => [`R$ ${Number(value).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`, "Vendas"]}
+                />
+                <Bar 
+                  dataKey="vendas" 
+                  fill="var(--color-vendas)" 
+                  radius={[8, 8, 0, 0]}
+                />
+              </BarChart>
+            </ChartContainer>
           </CardContent>
         </Card>
 
