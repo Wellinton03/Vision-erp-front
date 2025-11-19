@@ -156,7 +156,7 @@ export default function Dashboard() {
           <CardContent>
             <div className="space-y-4">
               {recentActivities.map((activity) => (
-                <div key={activity.id} className="flex items-center justify-between p-3 bg-muted/20 rounded-lg hover:bg-muted/30 transition-colors">
+                <div key={activity.id} className="flex items-center justify-between p-3 bg-muted rounded-lg hover:bg-accent transition-colors">
                   <div className="flex-1">
                     <p className="font-medium text-sm">{activity.action}</p>
                     <p className="text-sm text-muted-foreground">{activity.client}</p>

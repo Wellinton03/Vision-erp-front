@@ -52,7 +52,7 @@ export default function Login() {
       <Card className="w-full max-w-md shadow-xl">
         <CardHeader className="space-y-1 text-center">
           <div className="flex justify-center mb-4">
-            <div className="p-3 bg-primary/10 rounded-full">
+            <div className="p-3 bg-primary-light rounded-full">
               <Building2 className="h-8 w-8 text-primary" />
             </div>
           </div>
@@ -103,7 +103,7 @@ export default function Login() {
               {isLoading ? 'Entrando...' : 'Entrar'}
             </Button>
 
-            <div className="mt-6 p-4 bg-muted/50 rounded-lg space-y-2 text-sm">
+            <div className="mt-6 p-4 bg-muted rounded-lg space-y-2 text-sm">
               <p className="font-semibold text-muted-foreground">Usuários de teste:</p>
               <div className="space-y-1">
                 <p><strong>Dono:</strong> joao@techsolutions.com</p>
