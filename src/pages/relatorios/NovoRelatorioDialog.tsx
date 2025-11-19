@@ -287,7 +287,7 @@ A implementação destas medidas pode resultar em redução de 30-40% nos gastos
               {eventosMockados.map((evento) => (
                 <div
                   key={evento.id}
-                  className="flex items-start gap-3 p-4 hover:bg-muted/50 cursor-pointer"
+                  className="flex items-start gap-3 p-4 hover:bg-accent cursor-pointer"
                   onClick={() => toggleEvento(evento.id)}
                 >
                   <Checkbox

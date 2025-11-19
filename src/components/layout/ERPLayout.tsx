@@ -42,14 +42,14 @@ export function ERPLayout({ children }: ERPLayoutProps) {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input 
                   placeholder="Buscar..." 
-                  className="pl-10 w-80 bg-muted/30 border-muted hover:border-primary/30 focus:border-primary"
+                  className="pl-10 w-80 bg-card border-border hover:border-primary focus:border-primary"
                 />
               </div>
             </div>
 
             <div className="flex items-center gap-4">
               {/* Empresa Atual */}
-              <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg border border-primary/20">
+              <div className="flex items-center gap-2 px-3 py-1.5 bg-primary-light rounded-lg border border-primary">
                 <Building2 className="h-4 w-4 text-primary" />
                 <div className="flex flex-col">
                   <span className="text-sm font-semibold text-foreground">{user?.empresa.nome}</span>
@@ -57,14 +57,14 @@ export function ERPLayout({ children }: ERPLayoutProps) {
                 </div>
               </div>
 
-              <Button variant="ghost" size="icon" className="hover:bg-muted/60">
+              <Button variant="ghost" size="icon" className="hover:bg-accent">
                 <Bell className="h-5 w-5" />
               </Button>
 
               {/* User Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon" className="hover:bg-muted/60">
+                  <Button variant="ghost" size="icon" className="hover:bg-accent">
                     <User className="h-5 w-5" />
                   </Button>
                 </DropdownMenuTrigger>

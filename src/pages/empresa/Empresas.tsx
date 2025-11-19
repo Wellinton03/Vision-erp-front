@@ -56,7 +56,7 @@ export default function Empresas() {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
               <Input
                 placeholder="Buscar usuários..."
-                className="pl-10 bg-muted/30"
+                className="pl-10 bg-card border-border"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
               />

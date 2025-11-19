@@ -107,7 +107,7 @@ export default function Relatorios() {
               </CardHeader>
               <CardContent>
                 <div className="prose prose-sm max-w-none">
-                  <pre className="whitespace-pre-wrap font-sans text-sm text-foreground bg-muted/30 p-4 rounded-lg">
+                  <pre className="whitespace-pre-wrap font-sans text-sm text-foreground bg-muted p-4 rounded-lg">
                     {relatorio.relatorio}
                   </pre>
                 </div>
