@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { ERPLayout } from "@/components/layout/ERPLayout";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { ThemeProvider } from "@/components/ThemeProvider";
 import Login from "@/pages/Auth/Login";
 import Dashboard from "@/pages/Dashboard";
 import CadastroUsuarios from "@/pages/usuario/CadastroUsuarios";
@@ -18,17 +19,19 @@ import CadastroItems from "@/pages/Item/CadastroItems";
 import Eventos from "./pages/evento/Eventos";
 import CadastroEventos from "./pages/evento/CadastroEventos";
 import Relatorios from "./pages/relatorios/Relatorios";
+import Configuracoes from "./pages/Configuracoes";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
-          <Routes>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AuthProvider>
+            <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Navigate to="/dashboard" replace />} />
             <Route
@@ -131,11 +134,22 @@ const App = () => (
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/configuracoes"
+            element={
+              <ProtectedRoute>
+                <ERPLayout>
+                  <Configuracoes />
+                </ERPLayout>
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<NotFound />} />
-        </Routes>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
+          </Routes>
+          </AuthProvider>
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
